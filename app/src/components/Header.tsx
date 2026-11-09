@@ -12,8 +12,10 @@ export function Header() {
         <Link href="/" className="text-lg font-semibold tracking-tight">
           Helm <span style={{ color: "var(--warn)" }}>Protocol</span>
         </Link>
-        <nav className="flex gap-4 text-sm" style={{ color: "var(--mut)" }}>
-          <Link href="/">Markets</Link>
+        <nav className="flex flex-wrap gap-4 text-sm" style={{ color: "var(--mut)" }}>
+          <Link href="/">Perps</Link>
+          <Link href="/forecast">Forecast</Link>
+          <Link href="/positions">Positions</Link>
           <Link href="/risk">Risk console</Link>
           <Link href="/about">About</Link>
         </nav>
@@ -21,7 +23,7 @@ export function Header() {
       <div className="flex items-center gap-3">
         <span className="rounded-full px-2 py-0.5 text-[11px] uppercase tracking-wide"
           style={{ background: "var(--bg-soft)", color: "var(--warn)", border: "1px solid var(--line)" }}>
-          Solana devnet
+          Solana devnet · demo only
         </span>
         <ThemeToggle />
         <WalletButton />

@@ -1,0 +1,13 @@
+Created 10 Nov 2026 (Asia/Calcutta) via scripts/seed-forecast.cjs
+Network: Solana devnet
+pm-AMM program: GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y
+Collateral: mock USDC 3WQ8hCqTNwjrh8WzE2XyoZoUrd1miPcwWfMkmFPUMEWZ
+Name: HELM SOL >= 150
+marketId: 71859704526502
+marketPda: HRjM8df1dFoi41XqqMZ8SibyQSs4gCDmHaQV6w47m1C4
+signature: 5zap6FgEYwKjrB4RuqxqgUzgg3C93uG6f7SY6X8WMcTAxeQxtRvencLwzaUexyCq2fDpGkWADkLSunufgajEyuUE
+Creator: 78KrbtrWJVuLhnGSb9UQsdcQki2oHw86N1MehJqLNskb
+Duration: 7 days from creation
+Explorer: https://solscan.io/account/HRjM8df1dFoi41XqqMZ8SibyQSs4gCDmHaQV6w47m1C4?cluster=devnet
+Reference UI: https://pm-amm-devnet.vercel.app/market/71859704526502
+Note: Hermes was HTTP 401 from this environment at seed time, so the strike defaulted to 150 as the script logged. That is a default, not a live mark.

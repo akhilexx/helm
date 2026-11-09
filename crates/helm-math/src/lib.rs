@@ -2,6 +2,8 @@
 //! All prices and sizes use 1e6 fixed-point (`SCALE`). Collateral is native
 //! lamports (1e9). Functions that mix the two convert explicitly.
 
+pub mod forecast;
+
 pub const SCALE: u128 = 1_000_000;
 pub const BPS_DENOM: u128 = 10_000;
 

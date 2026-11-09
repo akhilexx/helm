@@ -4,7 +4,7 @@ Oracle-safe isolated-margin perpetual futures on Solana **devnet**.
 
 > A perp that would rather halt than mark you on a bad print.
 
-Helm is the Solana Perps & Prediction Markets hackathon entry for Akhilesh Patil (solo). It is a risk engine first and a trading venue second. It is **not** a prediction market.
+Helm is the Solana Perps & Prediction Markets hackathon entry for Akhilesh Patil (solo). It is a risk engine first: perpetual futures with an oracle guard, and binary forecasts that trade on the live Predict pm-AMM but refuse to resolve on a bad print.
 
 ```
                    ┌─────────────────────────────┐
@@ -53,7 +53,7 @@ Default demo parameters (set in `scripts/init.mjs`): 10% initial margin, 5% main
 |---|---|
 | `programs/helm` | On-chain program (`solana-program` 1.18). Instruction discriminators match Anchor’s `sha256("global:<name>")[..8]` so the TypeScript client stays conventional. |
 | `crates/helm-math` | Pure Rust PnL / margin / oracle / liquidation-price math |
-| `app/` | Next.js + Tailwind UI (dark / light, responsive) |
+| `app/` | Next.js + Tailwind UI (dark / light, responsive) — perps, forecast, positions |
 | `scripts/` | `deploy.sh`, `init.mjs`, `keeper.mjs` |
 | `research.md` | Hackathon rules, India legal note, idea pick |
 | `submission.md` | Form answers, video script, browser steps |
@@ -65,9 +65,10 @@ Declared program id: `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd`.
 
 ```bash
 cargo test -p helm-math
-# 15 passed; 0 failed  (10 Nov 2026, Asia/Calcutta)
+# 29 passed; 0 failed  (10 Nov 2026, Asia/Calcutta) — 15 perps + 14 forecast resolver
 
 node --test crates/helm-math-js/math.test.mjs
+# 6 passed; 0 failed
 ```
 
 The on-chain crate is built with `cargo-build-sbf` (Solana CLI 2.1.21, platform-tools rustc 1.79). Current Anchor crates on crates.io pull `edition2024` dependencies that this BPF toolchain cannot parse, so the program is written as a native Solana program with the same account layouts and discriminators an Anchor client expects. That is a toolchain constraint, not a feature claim.
@@ -96,9 +97,28 @@ The UI reads accounts from `https://api.devnet.solana.com`. Empty marks mean the
 
 Frontend hosting: no login-free static host was used. Deploy the `app/` directory to Render (vault login `Render`) with build `npm install && npm run build` and start `npm start`, working directory `app`.
 
+## Forecast (prediction markets)
+
+Trading is **not** a homemade AMM. Forecast calls the live Predict pm-AMM on Solana devnet (`GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y`, mock USDC `3WQ8hCqTNwjrh8WzE2XyoZoUrd1miPcwWfMkmFPUMEWZ`) via `@pm-amm/sdk`. Helm supplies the resolver Predict’s docs say they do not have yet:
+
+1. Market names encode the rule (`HELM SOL >= 150`).
+2. After expiry, Pyth Hermes is checked for freshness, confidence and jumps (same ethic as the perps engine).
+3. A safe print proposes YES or NO and opens a dispute window (default 1 hour).
+4. A later safe print that disagrees discards the proposal.
+5. Helm calls `resolveMarket` only after an uncontested window. A persistently unsafe oracle is halted, then treated as void rather than guessed.
+
+A seeded devnet market (10 Nov 2026 IST): name `HELM SOL >= 150`, market id `71859704526502`, PDA `HRjM8df1dFoi41XqqMZ8SibyQSs4gCDmHaQV6w47m1C4`, signature `5zap6FgEYwKjrB4RuqxqgUzgg3C93uG6f7SY6X8WMcTAxeQxtRvencLwzaUexyCq2fDpGkWADkLSunufgajEyuUE`. Hermes returned HTTP 401 at seed time, so the strike defaulted to 150 (logged by the script). Details: `scripts/seeded-forecast.txt`.
+
+```bash
+# create another Helm-encoded market (needs deployer key + mUSDC)
+node scripts/seed-forecast.cjs
+```
+
+UI routes: `/forecast`, `/forecast/new`, `/forecast/[pda]`, `/positions`.
+
 ## What this is not
 
-Not a prediction market, not a pm-AMM integration, not a mainnet venue, not an offer of real-money derivatives to persons in India. Devnet SOL only.
+A developer demonstration on Solana devnet, not available for real-money use. Forecast trades mock USDC only. The app is not wired to mainnet USDC. Devnet SOL for perps.
 
 ## License
 

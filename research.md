@@ -124,3 +124,23 @@ Honest limit: 582 people are registered and the comparable Stocklana event conve
 | Public repo | Optional on the form, but expected by judges and required for the Spark bounty (which we are not targeting). Repo will be prepared locally; the user pushes to GitHub himself. |
 | Demo | Optional but decisive. Program on devnet + web app. |
 | Videos | Optional; pitch ≤ 3 min, technical ≤ 5 min. Script prepared in `submission.md`. |
+
+## 8. Prediction-markets extension (10 Nov 2026, after owner approval)
+
+The owner approved building the prediction-markets side, accepted the India legal risk noted in §2, and required the product to stay on devnet / test tokens with a clear “not available for real-money use” notice.
+
+### pm-AMM bounty — honest decision
+
+Spark’s “Best use of the pm-AMM by PREDICT” ($1,000 **investment**, not a grant) requires the real pm-AMM as a **core** part of the product, not a mock. Predict is already deployed on devnet and mainnet under program `GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y`, with mock USDC `3WQ8hCqTNwjrh8WzE2XyoZoUrd1miPcwWfMkmFPUMEWZ` on devnet. Their own docs (§7 / hackathon kit) say resolution is still a centralized authority call: “There is no oracle, timelock or dispute process yet,” and they list an oracle adapter plus a dispute window as the first suggested hackathon project.
+
+**Decision: use the live pm-AMM for all Forecast trading, and opt into the bounty.** A homemade curve would fail eligibility and look weaker than teams that actually integrated. Helm’s differentiator is the missing resolver, which is exactly what they asked for.
+
+**Honest limit:** the bounty’s heaviest published criterion is traction (users, trades, volume, fees). This entry will not invent those numbers. The $1k investment is therefore unlikely on traction alone. The main-track $100k is still the primary target. Opting in costs nothing extra (up to 3 sponsor tracks) and is only legitimate because the integration is real.
+
+### Combined vs split submission
+
+Submit **one** project, Helm, covering perps and Forecast. The event theme is both; Stocklana winners were complete products with one sentence a judge can repeat; two thin entries would compete with each other. The form allows one repo, one demo, optional videos, and up to three sponsor tracks — pick the main track plus the pm-AMM bounty.
+
+### Resolution design
+
+Price-threshold binary markets encoded in the pm-AMM name (`HELM SOL >= 150`). After `endTs`, Helm reads Pyth Hermes and runs the same oracle checks as the perps engine (age, confidence, jump). A safe print *proposes* YES or NO and starts a dispute window. A later safe print that disagrees discards the proposal. Finalize (the only time Helm calls `resolveMarket`) requires the window to elapse with an agreeing safe print. If the oracle never becomes safe before a void-grace period, the market is voided rather than guessed. Predict itself cannot yet void; that limit is documented — Helm will not call resolve in the void/halt cases.

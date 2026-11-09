@@ -47,6 +47,10 @@ export default function HomePage() {
           withdraw and liquidation is gated by oracle age, confidence width, and jump bounds.
           When the circuit trips, the market goes reduce-only instead of settling on a poisoned mark.
         </p>
+        <p className="mt-3 text-sm" style={{ color: "var(--mut)" }}>
+          Binary forecasts live next door, on the Predict pm-AMM, with the same halt-rather-than-guess
+          resolver. <a href="/forecast" style={{ color: "var(--acc)" }}>Open Forecast →</a>
+        </p>
       </section>
 
       <div className="mb-4 flex items-center justify-between text-xs" style={{ color: "var(--mut)" }}>
