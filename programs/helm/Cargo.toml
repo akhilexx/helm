@@ -1,0 +1,18 @@
+[package]
+name = "helm"
+version = "0.1.0"
+description = "Helm: oracle-safe isolated-margin perpetual futures on Solana"
+edition = "2021"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "helm"
+
+[features]
+no-entrypoint = []
+default = []
+
+[dependencies]
+borsh = "0.10.3"
+solana-program = "1.18.26"

@@ -1,0 +1,11 @@
+keys/
+target/
+node_modules/
+.next/
+out/
+.env
+.env.*
+*.pem
+buffer-signer.json
+# cargo-build-sbf may write a keypair here — never commit it
+**/helm-keypair.json
