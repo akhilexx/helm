@@ -1,0 +1,29 @@
+Helm program — Solana devnet
+Captured: 10 Nov 2026, Asia/Calcutta (IST)
+
+Program id: 6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd
+Executable: true
+Owner: BPFLoaderUpgradeab1e11111111111111111111111
+ProgramData: 6qdctqMywkY5v2uKfkvVbzZngnjLGNVbnLXp2eWtdDdV
+Authority: 78KrbtrWJVuLhnGSb9UQsdcQki2oHw86N1MehJqLNskb
+Last deployed slot: 520658787
+Binary size: 134,936 bytes
+Explorer: https://solscan.io/account/6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd?cluster=devnet
+
+Deploy signature: H9SzM5nhajy1cZvf1cdwFHqdT1hcUEHZXdFqxwQfnMqn2KJ1TNRdcB2Bsug5FRr4p3UD2DjCZqa4mJA8L36Vp6P
+Init signature:   5KewZeR4UJFQQCe35nTgXnpzEBU46x9QbHNrx7MHYhQA4wM7WQGhti5oeta8xYUtfWoYbr3kPiCe8idf8TbZ6jmd
+
+Markets (owned by the program, disc HELMMKT1; mark_price is 0 until a keeper stamp lands):
+  SOL-PERP  HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx
+            https://solscan.io/account/HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx?cluster=devnet
+  BTC-PERP  HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi
+            https://solscan.io/account/HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi?cluster=devnet
+  XAU-PERP  84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS
+            https://solscan.io/account/84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS?cluster=devnet
+
+Keeper: scripts/keeper.mjs --once failed with Hermes HTTP 401 ("unauthorized").
+A second GET to hermes.pyth.network with a browser User-Agent also returned HTTP 401.
+No oracle stamp was posted and no price was invented. On-chain marks remain 0.
+
+Deployer remaining balance after deploy + init: 4.57050284 SOL
+(Starting balance before deploy: 5.26461784 SOL)

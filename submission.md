@@ -66,6 +66,15 @@ Instructions: initialize, create_market, post_oracle, set_market_status, deposit
 Oracle path: scripts/keeper.mjs reads Pyth Hermes HTTP and posts price, confidence and the current slot; the program re-checks age, confidence and jump
 Default market params: IM 10%, MM 5%, max 10x, max age 4096 slots, max confidence 2%, max jump 5%
 Frontend: Next.js + Tailwind, dark/light, wallet via injected Phantom/Solflare, live RPC reads
+Helm program (devnet, executable): 6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd
+  explorer: https://solscan.io/account/6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd?cluster=devnet
+  deploy tx: H9SzM5nhajy1cZvf1cdwFHqdT1hcUEHZXdFqxwQfnMqn2KJ1TNRdcB2Bsug5FRr4p3UD2DjCZqa4mJA8L36Vp6P
+  init tx: 5KewZeR4UJFQQCe35nTgXnpzEBU46x9QbHNrx7MHYhQA4wM7WQGhti5oeta8xYUtfWoYbr3kPiCe8idf8TbZ6jmd
+  SOL-PERP: HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx
+  BTC-PERP: HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi
+  XAU-PERP: 84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS
+  keeper: Hermes HTTP 401 on 10 Nov 2026 IST; no stamp posted; marks remain 0
+  deployer remaining: 4.57050284 SOL
 Forecast: @pm-amm/sdk against program GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y, mock USDC 3WQ8hCqTNwjrh8WzE2XyoZoUrd1miPcwWfMkmFPUMEWZ
 Seeded market: HELM SOL >= 150 / 71859704526502 / HRjM8df1dFoi41XqqMZ8SibyQSs4gCDmHaQV6w47m1C4
 Routes: / (perps), /forecast, /forecast/new, /forecast/[pda], /positions, /risk, /about
@@ -122,9 +131,8 @@ Select “Best use of the pm-AMM by PREDICT.” Do not invent traction numbers. 
 
 | Step | Who | Notes |
 |---|---|---|
-| Devnet SOL for the deployer `78KrbtrWJVuLhnGSb9UQsdcQki2oHw86N1MehJqLNskb` | Anyone with access to https://faucet.solana.com | Public RPC `requestAirdrop` returned HTTP 410 on 10 Nov 2026 (“RPC faucet is closed… Request test SOL at https://faucet.solana.com”). Deploy needs about 1.1 SOL. |
-| `./scripts/deploy.sh` then `node scripts/init.mjs` and `node scripts/keeper.mjs --once` | After the airdrop | Program binary is already built at `target/deploy/helm.so` (134,936 bytes). |
+| Re-run `node scripts/keeper.mjs --once` when Pyth Hermes stops returning HTTP 401 | Anyone on a network Hermes accepts | No stamp was posted on 10 Nov 2026 IST; marks are 0. Do not invent a price. |
 | Push this repo to GitHub as `akhilexx` | Owner (GitHub login is owner-held) | Do not push `keys/`. |
-| Host `app/` on Render | Browser session using the vault login named `Render` | Build `npm install && npm run build`, start `npm start`, root `app`. No login-free host was used. Forecast already talks to the live pm-AMM on devnet (no Helm program deploy required for that half). |
+| Host `app/` on Render | Browser session using the vault login named `Render` | Build `npm install && npm run build`, start `npm start`, root `app`. The app already points at program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd` on devnet. |
 | Record and upload videos | Owner review (standing rule for demo videos) | Script is in this file and in `DEMO.md`. |
 | Click Submit on the hackathon form | Browser, owner’s Google or wallet login | Package above is ready to paste. |

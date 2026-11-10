@@ -80,10 +80,24 @@ cargo-build-sbf --manifest-path programs/helm/Cargo.toml
 
 ## Deploy (devnet)
 
-1. Request ~1.1 SOL to the deployer at [faucet.solana.com](https://faucet.solana.com) (the public RPC faucet returns HTTP 410 as of 10 Nov 2026).
-2. `./scripts/deploy.sh`
-3. `node scripts/init.mjs`
-4. `node scripts/keeper.mjs --once` (or leave it running)
+Live as of 10 Nov 2026, 12:23 IST. Full record: [`deployed-devnet.txt`](deployed-devnet.txt).
+
+| | |
+|---|---|
+| Program | [`6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd`](https://solscan.io/account/6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd?cluster=devnet) |
+| Executable | true (BPF upgradeable loader) |
+| Deploy tx | `H9SzM5nhajy1cZvf1cdwFHqdT1hcUEHZXdFqxwQfnMqn2KJ1TNRdcB2Bsug5FRr4p3UD2DjCZqa4mJA8L36Vp6P` |
+| Init tx | `5KewZeR4UJFQQCe35nTgXnpzEBU46x9QbHNrx7MHYhQA4wM7WQGhti5oeta8xYUtfWoYbr3kPiCe8idf8TbZ6jmd` |
+| SOL-PERP | [`HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx`](https://solscan.io/account/HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx?cluster=devnet) |
+| BTC-PERP | [`HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi`](https://solscan.io/account/HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi?cluster=devnet) |
+| XAU-PERP | [`84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS`](https://solscan.io/account/84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS?cluster=devnet) |
+| Deployer remaining | 4.57050284 SOL (was 5.26461784 SOL before deploy) |
+
+`scripts/keeper.mjs --once` did **not** post a stamp: Pyth Hermes returned HTTP 401 (`unauthorized`), including with a browser User-Agent. On-chain `mark_price` fields are still 0. No price was invented. Re-run the keeper when Hermes accepts this host:
+
+```bash
+node scripts/keeper.mjs --once
+```
 
 Keys live in `keys/` (mode 600, gitignored). Do not commit them.
 
@@ -93,7 +107,7 @@ Keys live in `keys/` (mode 600, gitignored). Do not commit them.
 cd app && npm install && npm run dev
 ```
 
-The UI reads accounts from `https://api.devnet.solana.com`. Empty marks mean the program is not initialised yet — the app does not invent prices. A Pyth Hermes number is shown as an off-chain reference next to the on-chain mark.
+The UI reads accounts from `https://api.devnet.solana.com` against program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd`. Markets are initialised; marks stay `—` / 0 until a keeper stamp lands. The app does not invent prices. A Pyth Hermes number, when the API allows it, is shown as an off-chain reference next to the on-chain mark.
 
 Frontend hosting: no login-free static host was used. Deploy the `app/` directory to Render (vault login `Render`) with build `npm install && npm run build` and start `npm start`, working directory `app`.
 

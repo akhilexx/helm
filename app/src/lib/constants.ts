@@ -1,11 +1,12 @@
 import { PublicKey, clusterApiUrl } from "@solana/web3.js";
 
+// Live on Solana devnet as of 10 Nov 2026 IST. See ../../deployed-devnet.txt
 export const PROGRAM_ID = new PublicKey(
   process.env.NEXT_PUBLIC_PROGRAM_ID || "6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd"
 );
 
 export const RPC_URL =
-  process.env.NEXT_PUBLIC_RPC_URL || clusterApiUrl("devnet");
+  process.env.NEXT_PUBLIC_RPC_URL || "https://api.devnet.solana.com";
 
 export const SCALE = 1_000_000;
 export const BPS_DENOM = 10_000;
