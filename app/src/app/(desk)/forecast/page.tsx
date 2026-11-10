@@ -35,7 +35,7 @@ export default function ForecastIndex() {
           </p>
         </div>
         <Link href="/forecast/new" className="rounded-full px-4 py-2 text-sm font-medium"
-          style={{ background: "var(--fg)", color: "var(--bg)" }}>
+          style={{ background: "var(--acc)", color: "#ffffff" }}>
           Create market
         </Link>
       </div>

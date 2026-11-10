@@ -110,7 +110,7 @@ export function TradeDesk({ symbol }: { symbol: string }) {
                 className="rounded-full px-4 py-1.5 text-sm capitalize"
                 style={{
                   background: side === s ? (s === "long" ? "var(--ok)" : "var(--bad)") : "transparent",
-                  color: side === s ? "#061018" : "var(--fg)",
+                  color: side === s ? "#ffffff" : "var(--fg)",
                   border: "1px solid var(--line)"
                 }}>{s}</button>
             ))}
@@ -177,7 +177,7 @@ function Dd({ children }: { children: React.ReactNode }) {
 function Btn({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return (
     <button onClick={onClick} className="rounded-full px-4 py-2 text-sm font-medium"
-      style={{ background: "var(--fg)", color: "var(--bg)" }}>
+      style={{ background: "var(--acc)", color: "#ffffff" }}>
       {children}
     </button>
   );

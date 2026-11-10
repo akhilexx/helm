@@ -159,7 +159,7 @@ export function ForecastDesk({ marketId }: { marketId: string }) {
         </div>
         {decision?.kind === "finalize" && (
           <button onClick={finalize} className="rounded-full px-4 py-2 text-sm font-medium"
-            style={{ background: "var(--ok)", color: "#061018" }}>
+            style={{ background: "var(--ok)", color: "#ffffff" }}>
             Finalize {decision.outcome.toUpperCase()} on pm-AMM
           </button>
         )}
@@ -185,6 +185,6 @@ function Kpi({ label, value, hint }: { label: string; value: string; hint: strin
 function Btn({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return (
     <button onClick={onClick} className="rounded-full px-4 py-2 text-sm font-medium"
-      style={{ background: "var(--fg)", color: "var(--bg)" }}>{children}</button>
+      style={{ background: "var(--acc)", color: "#ffffff" }}>{children}</button>
   );
 }

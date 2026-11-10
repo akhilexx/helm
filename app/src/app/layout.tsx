@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -20,13 +20,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen antialiased">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('helm-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}`
-          }}
-        />
         <Header />
-        <main className="mx-auto max-w-6xl px-5 pb-16 pt-8">{children}</main>
+        {children}
         <Disclaimer />
       </body>
     </html>

@@ -78,7 +78,7 @@ export default function NewForecast() {
           Encoded name: {formatHelmName({ asset, compare, strike: Number(strike) || 0 })}
         </p>
         <button onClick={submit} className="rounded-full px-4 py-2 text-sm font-medium"
-          style={{ background: "var(--fg)", color: "var(--bg)" }}>
+          style={{ background: "var(--acc)", color: "#ffffff" }}>
           Create on devnet pm-AMM
         </button>
         {status && <p className="break-all text-xs mono" style={{ color: "var(--mut)" }}>{status}</p>}

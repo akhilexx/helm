@@ -32,7 +32,7 @@ export function WalletButton({ onChange }: { onChange?: (pk: string | null) => v
     <button
       onClick={connect}
       className="rounded-full px-4 py-1.5 text-sm font-medium"
-      style={{ background: "var(--acc)", color: "#061018" }}
+      style={{ background: "var(--acc)", color: "#ffffff" }}
     >
       Connect wallet
     </button>
