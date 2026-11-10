@@ -47,7 +47,7 @@ Helm is an isolated-margin perpetual-futures venue on Solana devnet whose produc
 
 Every open, increase, withdraw and liquidation is gated by the same on-chain oracle checks: the mark must exist, its publish slot must be fresh against the chain clock, its confidence band must be inside the market cap, and a jump against the last good mark trips the market into reduce-only instead of becoming the new mark. Liquidation is allowed only while that oracle is live. Helm will not liquidate a trader on a stale or jumped print.
 
-Three markets ship in the demo: SOL-PERP, BTC-PERP, and XAU-PERP (a gold hedge market). Collateral is native devnet SOL held in a program vault. A keeper stamps Pyth Hermes prices on-chain so judges can see a real reference tape next to the on-chain mark. The web app reads those accounts live; it does not invent marks when an account is missing.
+Three markets ship in the demo: SOL-PERP, BTC-PERP, and XAU-PERP (a gold hedge market). Collateral is native devnet SOL held in a program vault. A keeper stamps real Pyth prices (on-chain Core Compatible shard-0 feeds; Hermes if a key is already present) so judges can see a real reference tape next to the on-chain mark. The web app reads those accounts live; it does not invent marks when an account is missing.
 
 Forecast is the prediction-market half. Trading uses the live Predict pm-AMM on Solana devnet (mock USDC), not a homemade curve. Market names encode a price threshold (for example HELM SOL >= 150). After expiry, Helm reads Pyth Hermes and applies the same oracle checks as the perps engine. A safe print proposes YES or NO and opens a dispute window. A later safe print that disagrees discards the proposal. Helm calls resolveMarket only after an uncontested window. If the oracle never becomes safe, Helm does not guess — it halts, then treats the market as void.
 
@@ -63,7 +63,7 @@ Network: Solana devnet
 Collateral: native devnet SOL in a program-owned vault PDA
 Accounts: Config, Vault, Market (per 8-byte symbol), Position (per market + owner)
 Instructions: initialize, create_market, post_oracle, set_market_status, deposit, withdraw, open_or_increase, reduce, liquidate
-Oracle path: scripts/keeper.mjs reads Pyth Hermes HTTP and posts price, confidence and the current slot; the program re-checks age, confidence and jump
+Oracle path: scripts/keeper.mjs tries Hermes HTTP only with an existing PYTH_API_KEY (signup not performed; Hermes returned 401 without a key on 10 Nov 2026 IST), then reads Pyth Core Compatible shard-0 price-feed accounts on Solana devnet and posts price, confidence and the feed posted_slot; the program re-checks age, confidence and jump
 Default market params: IM 10%, MM 5%, max 10x, max age 4096 slots, max confidence 2%, max jump 5%
 Frontend: Next.js + Tailwind, dark/light, wallet via injected Phantom/Solflare, live RPC reads
 Helm program (devnet, executable): 6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd
@@ -73,8 +73,13 @@ Helm program (devnet, executable): 6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd
   SOL-PERP: HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx
   BTC-PERP: HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi
   XAU-PERP: 84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS
-  keeper: Hermes HTTP 401 on 10 Nov 2026 IST; no stamp posted; marks remain 0
-  deployer remaining: 4.57050284 SOL
+  upgrade tx (Market unpack padding fix): 27Zcbvzm1fSGdU5AxBNeFHYLryoAfPXCabv8Vv9ZEsyfPyngxdgrcZXyrPpgcToV4FZHVSmg1hhtsuq9PPxEKrRv
+  keeper tx: 3yN3vPM3Fxipifx6yi1gQPHUL29d3J5VUNxc8wNKY3Wsg9FexFSm1nMfUfDNVhbiv5R7J2PdFBJrWtZQ3Y2TJnEM
+  keeper source: Pyth Core Compatible shard-0 on devnet (Hermes 401 without API key; no signup)
+  SOL-PERP mark 85964823 ($85.964823) conf 40795 publish 10 Nov 2026, 12:28:10 IST slot 520660235 account 7AviUf9nL62mcxNbQGKm4nKDQnPjswo6c5MX4D57HmyE
+  BTC-PERP mark 74567899580 ($74567.89958) conf 92350623 publish 10 Nov 2026, 12:24:52 IST slot 520659396 account APgzQGGdv2qCgBkX6aHVkrGePtBVDDg68GiqaM7rmtf5
+  XAU-PERP mark 4121287000 ($4121.287) conf 143000 publish 10 Nov 2026, 12:24:52 IST slot 520659408 account csXV1aFF7uAfTHYWx6dDj718hnf7dUDU8v54dubib17
+  deployer remaining: 4.56981784 SOL
 Forecast: @pm-amm/sdk against program GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y, mock USDC 3WQ8hCqTNwjrh8WzE2XyoZoUrd1miPcwWfMkmFPUMEWZ
 Seeded market: HELM SOL >= 150 / 71859704526502 / HRjM8df1dFoi41XqqMZ8SibyQSs4gCDmHaQV6w47m1C4
 Routes: / (perps), /forecast, /forecast/new, /forecast/[pda], /positions, /risk, /about
@@ -131,7 +136,6 @@ Select “Best use of the pm-AMM by PREDICT.” Do not invent traction numbers. 
 
 | Step | Who | Notes |
 |---|---|---|
-| Re-run `node scripts/keeper.mjs --once` when Pyth Hermes stops returning HTTP 401 | Anyone on a network Hermes accepts | No stamp was posted on 10 Nov 2026 IST; marks are 0. Do not invent a price. |
 | Push this repo to GitHub as `akhilexx` | Owner (GitHub login is owner-held) | Do not push `keys/`. |
 | Host `app/` on Render | Browser session using the vault login named `Render` | Build `npm install && npm run build`, start `npm start`, root `app`. The app already points at program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd` on devnet. |
 | Record and upload videos | Owner review (standing rule for demo videos) | Script is in this file and in `DEMO.md`. |

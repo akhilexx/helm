@@ -8,7 +8,8 @@ Helm is the Solana Perps & Prediction Markets hackathon entry for Akhilesh Patil
 
 ```
                    ┌─────────────────────────────┐
-                   │   Pyth Hermes (HTTP, ref)   │
+                   │ Pyth Core shard-0 (on-chain)│
+                   │ Hermes HTTP if PYTH_API_KEY │
                    └──────────────┬──────────────┘
                                   │ keeper.mjs
                                   ▼
@@ -91,13 +92,29 @@ Live as of 10 Nov 2026, 12:23 IST. Full record: [`deployed-devnet.txt`](deployed
 | SOL-PERP | [`HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx`](https://solscan.io/account/HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx?cluster=devnet) |
 | BTC-PERP | [`HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi`](https://solscan.io/account/HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi?cluster=devnet) |
 | XAU-PERP | [`84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS`](https://solscan.io/account/84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS?cluster=devnet) |
-| Deployer remaining | 4.57050284 SOL (was 5.26461784 SOL before deploy) |
+| Upgrade tx | `27Zcbvzm1fSGdU5AxBNeFHYLryoAfPXCabv8Vv9ZEsyfPyngxdgrcZXyrPpgcToV4FZHVSmg1hhtsuq9PPxEKrRv` |
+| Keeper tx | `3yN3vPM3Fxipifx6yi1gQPHUL29d3J5VUNxc8wNKY3Wsg9FexFSm1nMfUfDNVhbiv5R7J2PdFBJrWtZQ3Y2TJnEM` |
+| Deployer remaining | 4.56981784 SOL (was 5.26461784 SOL before deploy) |
 
-`scripts/keeper.mjs --once` did **not** post a stamp: Pyth Hermes returned HTTP 401 (`unauthorized`), including with a browser User-Agent. On-chain `mark_price` fields are still 0. No price was invented. Re-run the keeper when Hermes accepts this host:
+`scripts/keeper.mjs --once` posted a real stamp on 10 Nov 2026, 12:28 IST (Asia/Calcutta). Hermes (`hermes.pyth.network` and `pyth.dourolabs.app/hermes`) returned HTTP 401: since 26 Aug 2026 Hermes requires a Pyth API key from [Pyth Terminal signup](https://app.pyth.com/signup) (not created from this host). The keeper then read sponsored Pyth Core Compatible shard-0 price-feed accounts on Solana **devnet** (no API key) and posted price, confidence and the feed account’s `posted_slot`.
+
+Keeper tx: `3yN3vPM3Fxipifx6yi1gQPHUL29d3J5VUNxc8wNKY3Wsg9FexFSm1nMfUfDNVhbiv5R7J2PdFBJrWtZQ3Y2TJnEM`
+
+| Market | mark (1e6) | USD | conf (1e6) | Pyth publish time (IST) | stamp slot | source account |
+|---|---:|---:|---:|---|---:|---|
+| SOL-PERP | 85964823 | 85.964823 | 40795 | 10 Nov 2026, 12:28:10 IST | 520660235 | `7AviUf9nL62mcxNbQGKm4nKDQnPjswo6c5MX4D57HmyE` |
+| BTC-PERP | 74567899580 | 74567.89958 | 92350623 | 10 Nov 2026, 12:24:52 IST | 520659396 | `APgzQGGdv2qCgBkX6aHVkrGePtBVDDg68GiqaM7rmtf5` |
+| XAU-PERP | 4121287000 | 4121.287 | 143000 | 10 Nov 2026, 12:24:52 IST | 520659408 | `csXV1aFF7uAfTHYWx6dDj718hnf7dUDU8v54dubib17` |
+
+All three marks are non-zero and the markets stayed `ACTIVE` (status 0). No price was invented.
+
+A program upgrade (`27Zcbvzm1fSGdU5AxBNeFHYLryoAfPXCabv8Vv9ZEsyfPyngxdgrcZXyrPpgcToV4FZHVSmg1hhtsuq9PPxEKrRv`) was required first: `unpack` used Borsh `try_from_slice` on Market accounts allocated at 168 bytes, so leftover padding rejected `post_oracle` with `InvalidAccountData`. `unpack` now uses `deserialize` and ignores padding.
 
 ```bash
 node scripts/keeper.mjs --once
 ```
+
+Optional: export `PYTH_API_KEY` if you already have a Hermes key. The script will not sign up for one.
 
 Keys live in `keys/` (mode 600, gitignored). Do not commit them.
 
@@ -107,7 +124,7 @@ Keys live in `keys/` (mode 600, gitignored). Do not commit them.
 cd app && npm install && npm run dev
 ```
 
-The UI reads accounts from `https://api.devnet.solana.com` against program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd`. Markets are initialised; marks stay `—` / 0 until a keeper stamp lands. The app does not invent prices. A Pyth Hermes number, when the API allows it, is shown as an off-chain reference next to the on-chain mark.
+The UI reads accounts from `https://api.devnet.solana.com` against program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd`. On-chain marks are the keeper stamps above (non-zero as of 10 Nov 2026, 12:28 IST). The app does not invent prices. A Pyth Hermes number, when a key is present, is shown as an off-chain reference next to the on-chain mark.
 
 Frontend hosting: no login-free static host was used. Deploy the `app/` directory to Render (vault login `Render`) with build `npm install && npm run build` and start `npm start`, working directory `app`.
 

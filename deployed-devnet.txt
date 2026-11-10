@@ -13,7 +13,7 @@ Explorer: https://solscan.io/account/6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXn
 Deploy signature: H9SzM5nhajy1cZvf1cdwFHqdT1hcUEHZXdFqxwQfnMqn2KJ1TNRdcB2Bsug5FRr4p3UD2DjCZqa4mJA8L36Vp6P
 Init signature:   5KewZeR4UJFQQCe35nTgXnpzEBU46x9QbHNrx7MHYhQA4wM7WQGhti5oeta8xYUtfWoYbr3kPiCe8idf8TbZ6jmd
 
-Markets (owned by the program, disc HELMMKT1; mark_price is 0 until a keeper stamp lands):
+Markets (owned by the program, disc HELMMKT1; marks posted 10 Nov 2026, 12:28 IST):
   SOL-PERP  HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx
             https://solscan.io/account/HsN1VKHYG5kw8JCxqc7MroYgmCAMbwHEMMoH1Tm2gNUx?cluster=devnet
   BTC-PERP  HVu6tg3gNEiztaAJeaNfhZWpYX9w6eu57xC2QVinSPmi
@@ -21,9 +21,31 @@ Markets (owned by the program, disc HELMMKT1; mark_price is 0 until a keeper sta
   XAU-PERP  84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS
             https://solscan.io/account/84nbrVPxDx3ZLYYsdqzu3GncLFy4HXzfiJFv3G19mEVS?cluster=devnet
 
-Keeper: scripts/keeper.mjs --once failed with Hermes HTTP 401 ("unauthorized").
-A second GET to hermes.pyth.network with a browser User-Agent also returned HTTP 401.
-No oracle stamp was posted and no price was invented. On-chain marks remain 0.
+Upgrade signature (unpack padding fix so post_oracle can read 168-byte Market accounts):
+  27Zcbvzm1fSGdU5AxBNeFHYLryoAfPXCabv8Vv9ZEsyfPyngxdgrcZXyrPpgcToV4FZHVSmg1hhtsuq9PPxEKrRv
 
-Deployer remaining balance after deploy + init: 4.57050284 SOL
+Keeper: Hermes https://hermes.pyth.network and https://pyth.dourolabs.app/hermes returned HTTP 401.
+Since 26 Aug 2026 Hermes requires a Pyth API key after signup at https://app.pyth.com/signup.
+No key was created. The keeper read sponsored Pyth Core Compatible shard-0 feeds on devnet.
+
+Keeper signature:
+  3yN3vPM3Fxipifx6yi1gQPHUL29d3J5VUNxc8wNKY3Wsg9FexFSm1nMfUfDNVhbiv5R7J2PdFBJrWtZQ3Y2TJnEM
+
+Marks (1e6 scale; all non-zero; status ACTIVE):
+  SOL-PERP  mark 85964823 ($85.964823) conf 40795
+            Pyth publish_time 1794293890 = 10 Nov 2026, 12:28:10 IST (Asia/Calcutta)
+            stamp slot 520660235
+            source helm-cluster pyth-core-compatible shard-0 7AviUf9nL62mcxNbQGKm4nKDQnPjswo6c5MX4D57HmyE
+  BTC-PERP  mark 74567899580 ($74567.89958) conf 92350623
+            Pyth publish_time 1794293692 = 10 Nov 2026, 12:24:52 IST (Asia/Calcutta)
+            stamp slot 520659396
+            source helm-cluster pyth-core-compatible shard-0 APgzQGGdv2qCgBkX6aHVkrGePtBVDDg68GiqaM7rmtf5
+  XAU-PERP  mark 4121287000 ($4121.287) conf 143000
+            Pyth publish_time 1794293692 = 10 Nov 2026, 12:24:52 IST (Asia/Calcutta)
+            stamp slot 520659408
+            source helm-cluster pyth-core-compatible shard-0 csXV1aFF7uAfTHYWx6dDj718hnf7dUDU8v54dubib17
+
+No market left unpriced. No price was invented.
+
+Deployer remaining balance after deploy + init + upgrade + keeper: 4.56981784 SOL
 (Starting balance before deploy: 5.26461784 SOL)

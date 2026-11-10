@@ -92,7 +92,10 @@ fn unpack<T: BorshDeserialize>(data: &[u8]) -> Result<T, ProgramError> {
     if data.len() < 8 {
         return Err(ProgramError::InvalidAccountData);
     }
-    T::try_from_slice(&data[8..]).map_err(|_| ProgramError::InvalidAccountData)
+    // Market accounts are allocated larger than the Borsh body (8 + 160).
+    // deserialize (not try_from_slice) so leftover padding does not fail a stamp.
+    let mut slice = &data[8..];
+    T::deserialize(&mut slice).map_err(|_| ProgramError::InvalidAccountData)
 }
 
 fn pack<T: BorshSerialize>(disc: &[u8; 8], value: &T, dst: &mut [u8]) -> Result<(), ProgramError> {
