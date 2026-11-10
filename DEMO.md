@@ -1,5 +1,8 @@
 # Helm demo script (about 3 minutes)
 
+Recorded pitch (unlisted): https://youtu.be/gJdCTG83-sY  
+Technical walkthrough (unlisted): https://youtu.be/aGmYInxNgnk  
+
 Network: Solana devnet. Wallet: Phantom or Solflare, Devnet mode.
 
 1. **Open the homepage** at https://akhilexx.github.io/helm/. Three market cards (SOL-PERP, BTC-PERP, XAU-PERP). Point at the status pill and the on-chain mark. If a card shows “Uninitialised” and an em-dash, say so — Helm does not fabricate a mark.

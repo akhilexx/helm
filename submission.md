@@ -99,7 +99,8 @@ Paste the public URL after the owner pushes this directory (the repo is prepared
 https://akhilexx.github.io/helm/
 
 ### Pitch video (≤ 3 min)
-Record from `DEMO.md`. Voiceover cues:
+https://youtu.be/gJdCTG83-sY  
+Unlisted on XAUCONNECT (@xauconnect). Recorded from `DEMO.md` (female voiceover, light landing page first). Voiceover cues:
 
 | Time | Visual | Voice |
 |---|---|---|
@@ -111,7 +112,8 @@ Record from `DEMO.md`. Voiceover cues:
 | 2:40–3:00 | Footer disclaimer | “Devnet demo, not available for real-money use.” |
 
 ### Technical video (≤ 5 min)
-Walk `programs/helm/src/math.rs` (oracle checks and liquidation price), then `post_oracle` and `require_live_oracle` in `lib.rs`, then `scripts/keeper.mjs`, then the Risk console reading those fields live.
+https://youtu.be/aGmYInxNgnk  
+Unlisted on XAUCONNECT (@xauconnect). Walks `programs/helm/src/math.rs` (oracle checks and liquidation price), then `post_oracle` and `require_live_oracle` in `lib.rs`, then `scripts/keeper.mjs`, then the Risk console reading those fields live.
 
 ### Team
 Solo — Akhilesh Patil. GitHub `akhilexx`. No teammates to invite.
@@ -127,7 +129,7 @@ Select “Best use of the pm-AMM by PREDICT.” Do not invent traction numbers. 
 4. Create a project named **Helm**.
 5. Paste the name, tagline, description and technical details above.
 6. Add the GitHub URL (https://github.com/akhilexx/helm) and the live demo URL (https://akhilexx.github.io/helm/).
-7. Upload the pitch video (≤ 3 min) and optional technical video (≤ 5 min).
+7. Add the pitch video https://youtu.be/gJdCTG83-sY and the technical video https://youtu.be/aGmYInxNgnk (both unlisted on XAUCONNECT).
 8. Leave team empty (solo). Opt into the pm-AMM bounty. Paste the seeded market PDA and signature if there is a “links / extra” box.
 9. Submit. Projects remain private until after judging.
 10. If a prize is later awarded, the Solana Foundation contacts winners for payout (expect KYC then). No pre-submit KYC is published.
@@ -138,5 +140,5 @@ Select “Best use of the pm-AMM by PREDICT.” Do not invent traction numbers. 
 |---|---|---|
 | Push this repo to GitHub as `akhilexx` | Owner (GitHub login is owner-held) | Do not push `keys/`. |
 | Host `app/` | Done | Live demo at https://akhilexx.github.io/helm/ (GitHub Pages from the `gh-pages` branch). The app points at program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd` on devnet. |
-| Record and upload videos | Owner review (standing rule for demo videos) | Script is in this file and in `DEMO.md`. |
+| Record and upload videos | Done | Pitch https://youtu.be/gJdCTG83-sY and technical https://youtu.be/aGmYInxNgnk (unlisted on XAUCONNECT). |
 | Click Submit on the hackathon form | Browser, owner’s Google or wallet login | Package above is ready to paste. |

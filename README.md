@@ -128,6 +128,8 @@ The UI reads accounts from `https://api.devnet.solana.com` against program `6edx
 
 Live demo: https://akhilexx.github.io/helm/ (GitHub Pages static export of `app/`, base path `/helm`).
 
+Videos (unlisted): [pitch demo](https://youtu.be/gJdCTG83-sY) and [technical walkthrough](https://youtu.be/aGmYInxNgnk).
+
 ## Forecast (prediction markets)
 
 Trading is **not** a homemade AMM. Forecast calls the live Predict pm-AMM on Solana devnet (`GV1FMGHRYBjQLaghE5fnGuYCuCcpdt3GD5xEX3TwN16y`, mock USDC `3WQ8hCqTNwjrh8WzE2XyoZoUrd1miPcwWfMkmFPUMEWZ`) via `@pm-amm/sdk`. Helm supplies the resolver Predict’s docs say they do not have yet:
