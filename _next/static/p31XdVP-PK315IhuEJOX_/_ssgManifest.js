@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fforecast\u002F[id]","\u002Ftrade\u002F[symbol]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
