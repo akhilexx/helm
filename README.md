@@ -126,7 +126,7 @@ cd app && npm install && npm run dev
 
 The UI reads accounts from `https://api.devnet.solana.com` against program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd`. On-chain marks are the keeper stamps above (non-zero as of 10 Nov 2026, 12:28 IST). The app does not invent prices. A Pyth Hermes number, when a key is present, is shown as an off-chain reference next to the on-chain mark.
 
-Frontend hosting: no login-free static host was used. Deploy the `app/` directory to Render (vault login `Render`) with build `npm install && npm run build` and start `npm start`, working directory `app`.
+Live demo: https://akhilexx.github.io/helm/ (GitHub Pages static export of `app/`, base path `/helm`).
 
 ## Forecast (prediction markets)
 

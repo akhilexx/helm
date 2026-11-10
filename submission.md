@@ -96,7 +96,7 @@ The closest comparable event on this same platform, Stocklana (completed Oct 202
 Paste the public URL after the owner pushes this directory (the repo is prepared locally; it is not pushed from this environment). Suggested name: `akhilexx/helm`.
 
 ### Live demo
-Paste the Render (or other) URL once the frontend is hosted. Until then, run `cd app && npm install && npm run dev` against devnet.
+https://akhilexx.github.io/helm/
 
 ### Pitch video (≤ 3 min)
 Record from `DEMO.md`. Voiceover cues:
@@ -126,7 +126,7 @@ Select “Best use of the pm-AMM by PREDICT.” Do not invent traction numbers. 
 3. Confirm the page still shows the event as open and that a **Submit** / **Submit project** control is visible. If it is disabled, the official build week may not have started; keep the package ready and submit as soon as it enables, before **5 Dec 2026**.
 4. Create a project named **Helm**.
 5. Paste the name, tagline, description and technical details above.
-6. Add the GitHub URL (after the owner pushes) and the live demo URL (after Render).
+6. Add the GitHub URL (https://github.com/akhilexx/helm) and the live demo URL (https://akhilexx.github.io/helm/).
 7. Upload the pitch video (≤ 3 min) and optional technical video (≤ 5 min).
 8. Leave team empty (solo). Opt into the pm-AMM bounty. Paste the seeded market PDA and signature if there is a “links / extra” box.
 9. Submit. Projects remain private until after judging.
@@ -137,6 +137,6 @@ Select “Best use of the pm-AMM by PREDICT.” Do not invent traction numbers. 
 | Step | Who | Notes |
 |---|---|---|
 | Push this repo to GitHub as `akhilexx` | Owner (GitHub login is owner-held) | Do not push `keys/`. |
-| Host `app/` on Render | Browser session using the vault login named `Render` | Build `npm install && npm run build`, start `npm start`, root `app`. The app already points at program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd` on devnet. |
+| Host `app/` | Done | Live demo at https://akhilexx.github.io/helm/ (GitHub Pages from the `gh-pages` branch). The app points at program `6edxEyrKXKAYSHcYy1wVEzF7miJ3dvYoR93TkrxfhXnd` on devnet. |
 | Record and upload videos | Owner review (standing rule for demo videos) | Script is in this file and in `DEMO.md`. |
 | Click Submit on the hackathon form | Browser, owner’s Google or wallet login | Package above is ready to paste. |
