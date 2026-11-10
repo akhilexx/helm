@@ -49,7 +49,7 @@ export default function HomePage() {
         </p>
         <p className="mt-3 text-sm" style={{ color: "var(--mut)" }}>
           Binary forecasts live next door, on the Predict pm-AMM, with the same halt-rather-than-guess
-          resolver. <a href="/forecast" style={{ color: "var(--acc)" }}>Open Forecast →</a>
+          resolver. <Link href="/forecast" style={{ color: "var(--acc)" }}>Open Forecast →</Link>
         </p>
       </section>
 
